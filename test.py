@@ -1,43 +1,30 @@
-import random
-import json
+from push_github import push_to_repo_branch
+from github import Github
+from dotenv import load_dotenv
+from pprint import pprint
+import requests
+import os
 
-# discord_id = {
-#         "Eli": 255487430021349377,
-#         "Nicky": 175172832932790272,
-#         "David": 102619624457117696,
-#         "Emilio": 175456751485845504,
-#         "Joe": 286373232658087936,
-#         "Brandon": 501940668130918410,
-#         "Jeremy": 810635012079878174,
-#         "Quinn": 183339268070965249,
-#         "James": 543605006717288449,
-#     }
-# print(random.choice(list(discord_id.values())))
+load_dotenv()
+username = "Cjcrispy"
+password = "Fightinggold20!"
 
-# qoutes["qoute"] = "speaker"
-# qoutes_json = json.dumps(qoutes)
-# print(qoutes_json)
+# url to request
+# url = f"https://api.github.com/users/{username}"
+url = f"https://api.github.com/repos/CJcrispy/E-zone/contents/qoutes.json"
 
-# function to add to JSON
-def write_json(data, filename='test.json'):
-    with open(filename,'w') as f:
-        json.dump(data, f, indent=4)
-      
-      
-with open('test.json') as json_file:
-    data = json.load(json_file)
-      
-    temp = data['qoutes']
-    x = len(temp)
-    print(x)
-    # python object to be appended
-    y = {"id": x+1,
-        "qoute": "i love unseasoned men",
-         "speaker": "Nicky",
-        }
-  
-  
-    # appending data to emp_details 
-    temp.append(y)
-      
-write_json(data) 
+headers = {'Authorization': os.getenv('GITHUB_TOKEN')}
+payload = {'message':'Mark', 'content': 'mark@bearer.sh' , 'sha': 'dd8884da8c4587fb725705a6eaa0db98bd39a66b'}
+response = requests.put(url, headers=headers ,json=payload)
+print(response)
+# authenticate to github
+# g = Github(username, password)
+
+# user_data = requests.get(url).json()
+
+# pprint(user_data)
+
+# get the authenticated user
+# user = g.get_user()
+# for repo in user.get_repos():
+#     print_repo(repo)

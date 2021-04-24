@@ -19,7 +19,7 @@ def push_to_repo_branch(gitHubFileName, fileName, repo_slug, branch, user, token
     '''
     
     message = "Automated update " + str(datetime.datetime.now())
-    path = "https://api.github.com/repos/%s/branches/%s" % (repo_slug, branch)
+    path = "https://api.github.com/repos/"+ repo_slug + "/contents/" + branch
 
     r = requests.get(path, auth=(user,token))
     if not r.ok:
@@ -51,6 +51,7 @@ def push_to_repo_branch(gitHubFileName, fileName, repo_slug, branch, user, token
 
     # gathered all the data, now let's push
     inputdata = {}
+    inputdata["owner"] = "CJcrispy"
     inputdata["path"] = gitHubFileName
     inputdata["branch"] = branch
     inputdata["message"] = message
@@ -58,7 +59,7 @@ def push_to_repo_branch(gitHubFileName, fileName, repo_slug, branch, user, token
     if sha:
         inputdata["sha"] = str(sha)
 
-    updateURL = "https://api.github.com/repos/EBISPOT/RDF-platform/contents/" + gitHubFileName
+    updateURL = "https://api.github.com/repos/CJcrispy/E-zone/git/blobs/dd8884da8c4587fb725705a6eaa0db98bd39a66b"
     try:
         rPut = requests.put(updateURL, auth=(user,token), data = json.dumps(inputdata))
         if not rPut.ok:
