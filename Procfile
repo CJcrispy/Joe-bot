@@ -1,1 +1,1 @@
-worker: python joe_bot.py
+worker: python3 joe_bot.py
