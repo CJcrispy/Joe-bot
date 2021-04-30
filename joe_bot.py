@@ -2,7 +2,9 @@ import discord
 import os
 import random
 import json
+from datetime import datetime
 from dotenv import load_dotenv
+from github import Github
 from discord.ext import commands
 
 load_dotenv()
@@ -25,9 +27,10 @@ async def foo(ctx, qoute, speaker):
             data = json.load(json_file)
             
             temp = data['eli_qoutes']
+            x = len(temp)
         
             # python object to be appended
-            y = {"id": 1,
+            y = {"id": x+1,
                 "qoute":qoute,
                 "speaker": speaker,
                 }
@@ -42,9 +45,11 @@ async def foo(ctx, qoute, speaker):
             data = json.load(json_file)
             
             temp = data['david_qoutes']
+            x = len(temp)
         
             # python object to be appended
-            y = {"qoute":qoute,
+            y = {"id": x+1,
+                "qoute":qoute,
                 "speaker": speaker,
                 }
         
@@ -58,9 +63,11 @@ async def foo(ctx, qoute, speaker):
             data = json.load(json_file)
             
             temp = data['nicky_qoutes']
+            x = len(temp)
         
             # python object to be appended
-            y = {"qoute":qoute,
+            y = {"id": x+1,
+                "qoute":qoute,
                 "speaker": speaker,
                 }
         
@@ -74,9 +81,11 @@ async def foo(ctx, qoute, speaker):
             data = json.load(json_file)
             
             temp = data['emilio_qoutes']
+            x = len(temp)
         
             # python object to be appended
-            y = {"qoute":qoute,
+            y = {"id": x+1,
+                "qoute":qoute,
                 "speaker": speaker,
                 }
         
@@ -90,9 +99,11 @@ async def foo(ctx, qoute, speaker):
             data = json.load(json_file)
             
             temp = data['joe_qoutes']
+            x = len(temp)
         
             # python object to be appended
-            y = {"qoute":qoute,
+            y = {"id": x+1,
+                "qoute":qoute,
                 "speaker": speaker,
                 }
         
@@ -106,9 +117,11 @@ async def foo(ctx, qoute, speaker):
             data = json.load(json_file)
             
             temp = data['brandon_qoutes']
+            x = len(temp)
         
             # python object to be appended
-            y = {"qoute":qoute,
+            y = {"id": x+1,
+                "qoute":qoute,
                 "speaker": speaker,
                 }
         
@@ -122,9 +135,11 @@ async def foo(ctx, qoute, speaker):
             data = json.load(json_file)
             
             temp = data['jeremy_qoutes']
+            x = len(temp)
         
             # python object to be appended
-            y = {"qoute":qoute,
+            y = {"id": x+1,
+                "qoute":qoute,
                 "speaker": speaker,
                 }
         
@@ -138,9 +153,11 @@ async def foo(ctx, qoute, speaker):
             data = json.load(json_file)
             
             temp = data['quinn_qoutes']
+            x = len(temp)
         
             # python object to be appended
-            y = {"qoute":qoute,
+            y = {"id": x+1,
+                "qoute":qoute,
                 "speaker": speaker,
                 }
         
@@ -154,9 +171,11 @@ async def foo(ctx, qoute, speaker):
             data = json.load(json_file)
             
             temp = data['james_qoutes']
+            x = len(temp)
         
             # python object to be appended
-            y = {"qoute":qoute,
+            y = {"id": x+1,
+                "qoute":qoute,
                 "speaker": speaker,
                 }
         
@@ -170,9 +189,11 @@ async def foo(ctx, qoute, speaker):
             data = json.load(json_file)
             
             temp = data['chris_qoutes']
+            x = len(temp)
         
             # python object to be appended
-            y = {"qoute":qoute,
+            y = {"id": x+1,
+                "qoute":qoute,
                 "speaker": speaker,
                 }
         
@@ -186,9 +207,11 @@ async def foo(ctx, qoute, speaker):
             data = json.load(json_file)
             
             temp = data['meme_magic_qoutes']
+            x = len(temp)
         
             # python object to be appended
-            y = {"qoute":qoute,
+            y = {"id": x+1,
+                "qoute":qoute,
                 "speaker": speaker,
                 }
         
@@ -197,6 +220,37 @@ async def foo(ctx, qoute, speaker):
 
         write_json(data)
         await ctx.send('"' + qoute + '" -<@' + os.getenv('C_TOKEN') + '>' )
+
+    now = datetime.now()
+
+    current_time = now.strftime("%H:%M:%S")
+    print("Current Time =", current_time)
+
+    if current_time == "12:00:00" or current_time == "20:00:00":
+        token = os.getenv('GITHUB_TOKEN')
+
+        repo = "CJcrispy/E-zone"
+        path = "site/assests/qoutes.json"
+
+        #API requests to get updated SHA file 
+        url = f"https://api.github.com/repos/CJcrispy/E-zone/contents/site/assests/qoutes.json"
+        get_response = requests.get(url)
+        sha = get_response.json()['sha']
+
+        g = Github(token)
+
+        data = open("qoutes.json", "r").read()
+
+        repo = g.get_repo(repo)
+        repo.update_file(
+            path = path, 
+            message = "update file", 
+            content = data, 
+            branch = "main",
+            sha = sha
+        )
+    else:
+        pass
 
 @bot.command()
 async def fool(ctx):
