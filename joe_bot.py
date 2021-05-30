@@ -284,7 +284,7 @@ async def spare(ctx):
         "Chris": os.getenv('C_TOKEN'),
     }
     myid = "<@" + str(random.choice(list(discord_id.values()))) +">"
-    await ctx.send(' %s just rolled a spare. Spare me some that nice cock.' % myid)
+    await ctx.send(' %s just rolled a spare. Spare me some of that nice cock.' % myid)
 
 
 @bot.command()
