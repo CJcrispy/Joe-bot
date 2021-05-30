@@ -270,6 +270,24 @@ async def fool(ctx):
     await ctx.send(' %s loves feet ' % myid)
 
 @bot.command()
+async def spare(ctx):
+    discord_id = {
+        "Eli": os.getenv('E_TOKEN'),
+        "Nicky": os.getenv('N_TOKEN'),
+        "David": os.getenv('D_TOKEN'),
+        "Emilio": os.getenv('ITALIAN_TOKEN'),
+        "Joe": os.getenv('J_TOKEN'),
+        "Brandon": os.getenv('B_TOKEN'),
+        "Jeremy": os.getenv('JE_TOKEN'),
+        "Quinn": os.getenv('Q_TOKEN'),
+        "James": os.getenv('BOOTY_TOKEN'),
+        "Chris": os.getenv('C_TOKEN'),
+    }
+    myid = "<@" + str(random.choice(list(discord_id.values()))) +">"
+    await ctx.send(' %s just rolled a spare. Spare me some that nice cock.' % myid)
+
+
+@bot.command()
 async def website(ctx):
     await ctx.send('check out the official Eli zone at https://elijahisland.netlify.app/')   
 
